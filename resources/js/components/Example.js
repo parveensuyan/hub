@@ -1,18 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route,Switch } from "react-router-dom";
+import People from './userlist/people';
 import App from "./App";
+import Planets from './userlist/planets';
+import Starships from './userlist/starships';
 function Example() {
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">Example Component</div>
-
-                        <div className="card-body"><App></App></div>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <BrowserRouter>
+                <Switch>
+                    <Routes>
+                        <Route
+                            path="people"
+                            element={<People />}
+                            component={<People/>}
+                        />
+                        <Route path="planets" element={<Planets />} />
+                        <Route path="starships" element={<Starships />} />
+                    </Routes>
+                    <App></App>
+                </Switch>
+            </BrowserRouter>
         </div>
     );
 }
