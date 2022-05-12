@@ -8,7 +8,7 @@ function App(props) {
         timeout = window.setTimeout(() => {
             if (props.getSearchKeyword)
                 props.getSearchKeyword(event.target.value);
-        }, 500);
+        }, 1000);
     };
 
     return (

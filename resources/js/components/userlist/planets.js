@@ -10,7 +10,7 @@ function Planets() {
 
     const fetchData = async () => {
               setIsLoading(true);
-        const api = await fetch("/api/planets");
+         const api = await fetch(`/api/people?search=${search}`);
         setData({
             users: await api.json(),
 
@@ -20,7 +20,7 @@ function Planets() {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [search]);
       const list = [];
       if (state.users.results != undefined) {
           state.users.results.forEach((product, key) => {

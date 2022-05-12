@@ -5453,7 +5453,7 @@ function App(props) {
     window.clearTimeout(timeout);
     timeout = window.setTimeout(function () {
       if (props.getSearchKeyword) props.getSearchKeyword(event.target.value);
-    }, 500);
+    }, 1000);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -5631,7 +5631,7 @@ function People() {
             case 0:
               setIsLoading(true);
               _context.next = 3;
-              return fetch("/api/people");
+              return fetch("/api/people?search=".concat(search));
 
             case 3:
               api = _context.sent;
@@ -5662,7 +5662,7 @@ function People() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     fetchData();
-  }, []);
+  }, [search]);
   var list = [];
 
   if (state.users.results != undefined) {
@@ -5680,7 +5680,8 @@ function People() {
         })]
       }, key));
     });
-  }
+  } // console.log(list)
+
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_App__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -5766,7 +5767,7 @@ function Planets() {
             case 0:
               setIsLoading(true);
               _context.next = 3;
-              return fetch("/api/planets");
+              return fetch("/api/people?search=".concat(search));
 
             case 3:
               api = _context.sent;
@@ -5797,7 +5798,7 @@ function Planets() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     fetchData();
-  }, []);
+  }, [search]);
   var list = [];
 
   if (state.users.results != undefined) {
@@ -5980,29 +5981,43 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function PeopleTable(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
-    className: "table",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
-      className: "thead-dark",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          scope: "col",
-          children: "Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          scope: "col",
-          children: "DOB"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          scope: "col",
-          children: "Gender"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-          scope: "col",
-          children: "Height"
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-      children: props.list
-    })]
-  });
+  var renderRecords = function renderRecords() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
+      className: "table",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
+        className: "thead-dark",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            scope: "col",
+            children: "Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            scope: "col",
+            children: "DOB"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            scope: "col",
+            children: "Gender"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+            scope: "col",
+            children: "Height"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
+        children: props.list
+      })]
+    });
+  };
+
+  var renderNoRecordFound = function renderNoRecordFound() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      children: "No records found!"
+    });
+  };
+
+  var render = function render() {
+    if (props.list.length === 0) return renderNoRecordFound();else return renderRecords();
+  };
+
+  return render();
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PeopleTable);
