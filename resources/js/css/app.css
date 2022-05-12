@@ -1,0 +1,12 @@
+.nav-bar-nn {
+    color: black;
+    font-size: 16px;
+    padding: 10px;
+    background: #333;
+}
+.nav-bar-nn a {
+    margin: 3px;
+    font-family: "Times New Roman", Times, serif;
+    text-decoration: none;
+    color: white;
+}
