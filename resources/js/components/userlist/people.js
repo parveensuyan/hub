@@ -1,40 +1,55 @@
-import React, {useEffect,useState} from 'react';
-import ReactDOM from 'react-dom';
-import Table from './table';
-function People(){
-     const [state, setData] = useState({
-         users: [],
-     });
-     const fetchData = async () => {
-         const api = await fetch("/api/people");
-         setData({
-             users: await api.json(),
-         });
-     };
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import PeopleTable from "./table/peopletable";
+import App from "../App";
+function People() {
+    const [search, setSearch] = useState("");
+    const [state, setData] = useState({
+        users: [],
+    });
+    const [isLoading, setIsLoading] = useState(false);
 
-     useEffect(() => {
-         fetchData();
-     }, []);
-      const list = [];
-      console.log(state.users.results);
-if (state.users.results !=undefined){
-     state.users.results.forEach((product,key) => {
-         list.push(
-             <tr key={key}>
-                 <th scope="row">
-                     {product.name}
-                 </th>
-                 <td> {product.birth_year}</td>
-                 <td>{product.gender}</td>
-                 <td>{product.height}</td>
-             </tr>
-         );
-       
-     });
-}
-     return (
-        <Table list = {list}></Table>
-     );
+    const fetchData = async () => {
+        setIsLoading(true);
+        const api = await fetch("/api/people");
+        setData({
+            users: await api.json(),
+        });
+        setIsLoading(false);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+    const list = [];
+    if (state.users.results != undefined) {
+        state.users.results.forEach((product, key) => {
+            list.push(
+                <tr key={key}>
+                    <th scope="row">{product.name}</th>
+                    <td> {product.birth_year}</td>
+                    <td>{product.gender}</td>
+                    <td>{product.height}</td>
+                </tr>
+            );
+        });
+    }
+    return (
+        <React.Fragment>
+            <App
+                componentName="People Component"
+                getSearchKeyword={(value) => {
+                    setSearch(value);
+                }}
+            >
+                {isLoading ? (
+                    <p>Loading ...</p>
+                ) : (
+                    <PeopleTable list={list}></PeopleTable>
+                )}
+            </App>
+        </React.Fragment>
+    );
 }
 
 export default People;

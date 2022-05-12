@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/people', [App\Http\Controllers\PeopleController::class, 'index']);
 Route::get('/planets', [App\Http\Controllers\PlanetsController::class, 'index']);
+Route::get('/starships', [App\Http\Controllers\StarshipsController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
